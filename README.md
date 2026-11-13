@@ -1,1 +1,471 @@
 # InterfaceFlux
+
+### Goal-Adaptive Interfaces for Complex Digital Systems
+
+**InterfaceFlux** is a Generative AI system that transforms a user's natural-language goal into a focused, task-specific interface and brings together the information, warnings, policies, and actions that actually matter for that task.
+
+## Team Members
+
+| Team Member     | Role                      | Responsibilities                                                          | Contact              |
+| ---             | ---                       | ---                                                                       | ---                  |
+| Aabha Borle     | Backend & Evaluation Lead | Backend APIs, synthetic data, policy handling, testing, and evaluation    | aborle2@illinois.edu |
+| Anisha Kango    | Frontend & UI/UX Lead     | Adaptive UI, user flows, usability, and accessibility                     | kango2@illinois.edu  |
+| Sakshi Katolkar | GenAI & Agent Logic Lead  | Intent interpretation, prompt workflows, task planning, and AI evaluation | srk12@illinois.edu   |
+
+**Course:** IS 492: Generative AI & Human-AI Systems  
+**Semester:** Fall 2026  
+**GitHub Repository:** https://github.com/sakshikatolkar/InterfaceFlux
+
+## Problem Statement & Motivation
+
+Complex institutional websites are often organized around departments and system structure rather than what users are actually trying to accomplish.
+
+For example, a university student asking, **“What do I still need to graduate?”** may need to check degree requirements, completed courses, academic policies, registration information, advising resources, and account holds across multiple pages or systems.
+
+Similarly, a student trying to drop a course may need to determine deadlines, eligibility, academic consequences, policies, and the correct action to take before they can complete what initially seems like a simple task.
+
+The problem is therefore not just navigation. Users must understand which information matters, connect information across different systems, interpret policies, and determine the correct next step.
+
+InterfaceFlux explores whether Generative AI can reduce this gap by allowing users to express their goals naturally and dynamically creating an interface around what they are trying to accomplish.
+
+## Target Users
+
+Our initial target users are university students interacting with complex institutional portals.
+
+University systems provide a useful environment for testing InterfaceFlux because students regularly complete tasks that require information from multiple systems, policies, and sources.
+
+### Core User Tasks
+
+#### 1. Graduation Readiness
+
+**User Goal:** “What do I still need to graduate?”
+
+**Desired Outcome:** The student receives a focused view showing completed requirements, remaining requirements, relevant warnings, and recommended next steps.
+
+#### 2. Course Drop
+
+**User Goal:** “Can I drop CS 411?”
+
+**Desired Outcome:** The student sees the relevant deadline, eligibility requirements, possible consequences, applicable policies, and available actions in one place.
+
+#### 3. Registration Preparation
+
+**User Goal:** “Help me prepare for registration.”
+
+**Desired Outcome:** The system identifies relevant holds, prerequisites, degree requirements, registration information, and actions the student may need to complete.
+
+## Competitive Landscape
+
+### Traditional University Portals
+
+University portals provide access to important services such as registration, degree progress, billing, advising, and student records.
+
+However, these systems are often separated into different pages or services. Users must understand the system structure before they can successfully complete their actual goal.
+
+### Conversational AI Assistants
+
+AI assistants make it easier for users to ask questions using natural language.
+
+However, a conversational response may still leave users with instructions that they must manually translate into actions across an existing interface.
+
+### AI Web Agents
+
+Research systems such as **Mind2Web, WebArena, WorkArena, and WebVoyager** explore how language models can understand natural-language instructions and interact with existing websites.
+
+These systems demonstrate the potential of AI-driven web interaction, but research also shows continuing challenges involving generalization, grounding, reliability, and successful execution of multi-step tasks.
+
+Most existing work focuses on helping AI operate interfaces that already exist.
+
+**InterfaceFlux explores a complementary question:** If AI understands the user's goal, can the interface itself adapt around that goal?
+
+## Initial Concept
+
+Instead of requiring users to navigate through a fixed website structure, InterfaceFlux begins with the user's goal.
+
+For example: **“I want to drop CS 411.”**
+
+The system would interpret the request, retrieve relevant user information and institutional policies, identify required steps and dependencies, and generate a focused interface containing only the information and actions relevant to that task.
+
+### System Flow
+
+```text
+User expresses a goal
+        ↓
+Intent Interpretation
+        ↓
+Context & Policy Retrieval
+        ↓
+Task Planning
+        ↓
+Interface Composition
+        ↓
+Focused Task-Specific Interface
+        ↓
+User Reviews and Confirms Actions
+```
+
+The initial system follows four primary stages:
+
+1. **Intent Interpretation**  
+   Convert the user's natural-language request into a structured goal.
+
+2. **Context Retrieval**  
+   Retrieve relevant student information, system state, and institutional policies.
+
+3. **Task Planning**  
+   Determine the required steps, dependencies, warnings, and available actions.
+
+4. **Interface Composition**  
+   Assemble a temporary task-specific interface using predefined components such as status cards, warnings, forms, links, and action buttons.
+
+## Why Generative AI?
+
+Generative AI is a functional part of InterfaceFlux rather than an additional chatbot layer.
+
+User goals can be open-ended, context-dependent, and expressed in many different ways. It would be difficult to manually create a fixed workflow for every possible combination of requests, policies, and user states.
+
+GenAI allows InterfaceFlux to:
+
+- Interpret natural-language goals.
+- Understand the user's intent.
+- Determine what context is relevant.
+- Connect user information with applicable policies.
+- Plan the steps required to complete a task.
+- Decide which interface components are appropriate for the current goal.
+
+Deterministic software will continue to control permissions, validation, and execution of actions.
+
+## Safety and User Control
+
+InterfaceFlux will not allow the language model to freely execute actions or generate unrestricted executable code.
+
+State-changing operations will use controlled backend functions.
+
+Important or consequential actions will require explicit user confirmation before execution.
+
+Additional safeguards include:
+
+- Using synthetic student data during prototype development.
+- Grounding policy-related responses in a controlled policy corpus.
+- Schema-validating model outputs.
+- Restricting executable actions to approved backend functions.
+- Falling back to informational responses for unsupported or low-confidence requests.
+- Testing against prompt injection and adversarial inputs.
+- Reviewing generated interfaces for accessibility.
+- Evaluating bias and potentially harmful outputs.
+
+## Prototype Scope
+
+The initial prototype will use a simulated university portal with synthetic student records and a controlled institutional policy corpus.
+
+Initial scenarios will include:
+
+- Course drops
+- Registration preparation
+- Graduation readiness
+- Account holds
+- Meal-plan changes
+
+Simple informational questions may remain conversational, while more complex or multi-step goals will trigger an adaptive interface.
+
+## Literature Foundation
+
+InterfaceFlux is informed by research in web agents, multimodal interface interaction, grounding, and generative interfaces.
+
+Our initial literature corpus includes research such as:
+
+- **Mind2Web** - General-purpose web agents and cross-website generalization.
+- **WebArena** - Realistic multi-step web interaction.
+- **WorkArena** - Enterprise and knowledge-work web tasks.
+- **WebVoyager** - Multimodal web interaction using visual and textual information.
+- **Generative Interfaces for Language Models** - Dynamically generated task-specific interfaces.
+- **SUPPLE: Automatically Generating User Interfaces** - Automatic and adaptive interface generation.
+- **Exploring the Design Space for Adaptive Graphical User Interfaces** - How adaptive UI changes affect usability and user satisfaction.
+- **Guidelines for Human-AI Interaction** - Principles for transparency, correction, user control, and trustworthy AI interaction.
+
+Together, these works highlight several recurring challenges:
+
+1. Understanding user intent does not guarantee correct execution.
+2. Grounding model decisions in valid interface actions remains difficult.
+3. Real-world tasks frequently require reasoning across multiple steps and sources.
+4. Visual and contextual information are important for interface interaction.
+5. Generative interfaces offer an alternative to purely conversational interaction.
+
+InterfaceFlux builds on these findings by exploring whether AI can adapt the interface itself rather than only navigating a fixed interface.
+
+## Checkpoint 2 Validation Plan
+
+Checkpoint 2 will focus on validating the **goal-to-interface pipeline**.
+
+We plan to evaluate approximately **25-30 controlled scenarios**, where each scenario defines:
+
+- User goal
+- Required context
+- Applicable policy
+- Expected actions
+- Dependencies
+- Warnings
+- Confirmation requirements
+
+### Evaluation Metrics
+
+We will evaluate:
+
+- Intent-recognition accuracy
+- Required-information coverage
+- Irrelevant-information rate
+- Policy-grounding accuracy
+- Valid-action selection
+- Interface completeness
+- Confirmation compliance
+
+We also plan to compare InterfaceFlux against a chat-only baseline using:
+
+- Number of task-completion steps
+- Correct-next-action rate
+- Perceived user effort
+
+The goal is to determine whether adaptive interfaces improve task completion rather than simply presenting the same information differently.
+
+## Project Roadmap
+
+| Checkpoint | Timeline | Primary Goal | Planned Deliverables |
+| --- | --- | --- | --- |
+| **Checkpoint 1** | **Sept. 17, 2026** | Project definition and research foundation | Problem definition, literature review, proposal, repository setup, GitHub project management, initial concept |
+| **Checkpoint 2** | **Oct. 8, 2026** | Validate the core goal-to-interface pipeline | Intent/prompt logic, controlled scenarios, synthetic data, prototype components, initial evaluation |
+| **Checkpoint 3** | **Nov. 5, 2026** | Expand and integrate the prototype | Integrated InterfaceFlux workflow, broader task coverage, safety testing, usability testing |
+| **Checkpoint 4** | **Dec. 3, 2026** | Final evaluation and refinement | Refined prototype, evaluation results, limitations, final presentation |
+
+## Repository Structure
+
+```text
+InterfaceFlux-IS492/
+├── README.md
+├── DESIGN_SPEC.md
+├── app/                      # Checkpoint 3 application (FastAPI + SQLite + Groq)
+│   ├── server.py             # API, model call, entity validation
+│   ├── rules.py              # deterministic rules, important items, directions
+│   ├── db.py                 # SQLite schema, seeding and queries
+│   ├── generate_students.py  # 254 seeded synthetic students
+│   ├── eval_intents.py       # live 42-case intent evaluation
+│   ├── index.html, assets/   # student portal UI
+│   ├── prompts/              # system prompt, settings, evaluation cases
+│   ├── sources/              # courses, offerings, policies, programs (from University docs)
+│   ├── tools/                # extract and verify source data
+│   └── INSTALL.md            # local setup
+├── University docs/          # source PDFs: calendars, catalogs, schedules, ISSS, refunds, Graduate College Handbook
+├── docs/                     # architecture, use cases, safety and privacy, observability
+├── tests/                    # backend test suite (52 tests)
+├── validation/               # Checkpoint 2 study, interviews, analyses; checkpoint3/ screenshots
+├── literature/               # bibliography and papers
+├── proposal/
+├── reflections/
+└── slides/                   # Checkpoint 1 and 2 decks
+```
+
+## Current Project Status
+
+### Checkpoint 1
+
+- Project concept selected
+- Problem and motivation defined
+- Initial technical approach designed
+- Checkpoint 2 validation strategy defined
+- Complete literature corpus
+- Complete individual paper reflections
+- Set up GitHub Issues
+- Set up GitHub Project Board
+- Finalize Checkpoint 1 presentation
+
+### Checkpoint 2
+
+- Completed controlled prompting study across ChatGPT, Claude, and Gemini.
+- Completed six short user interviews.
+- Documented cross-platform prompting results and failure cases.
+- Completed `GAP_ANALYSIS.md`.
+- Completed `THEORY_LENS.md`.
+- Identified the top three gaps for Checkpoint 3.
+- Refined the human-AI role partition and confirmation boundaries.
+- Developed the updated InterfaceFlux storyboard.
+- Completed individual validation reflections.
+
+### Checkpoint 3
+
+- Built the integrated portal on `live_demo`: live intent extraction, deterministic rules, SQLite, and a step-by-step student-services interface with a term picker.
+- Loaded real UIUC sources (calendars, Registrar deadlines, ISSS rules, refunds, Graduate College Handbook, catalogs, class schedules) with 81 automatically verified quotations.
+- Generated 254 reproducible synthetic students.
+- Added course drop, graduation, holds, your own courses and record, course search, course details, policy questions, "Important for you", "Where to check" directions and request history.
+- 52 backend tests passing; live intent evaluation 37/38 plus 4 record cases passing.
+- Documented architecture, use cases, safety and observability.
+
+---
+
+## Checkpoint 2 Outcomes
+
+Checkpoint 2 shifted the project from an initial concept into an evidence-informed design direction.
+The team completed a controlled prompting study across **ChatGPT, Claude, and Gemini**, using the same typical, edge, and failure scenarios to examine reasoning, grounding, memory, attention, uncertainty handling, and action boundaries.
+The team also conducted **six short student interviews** to understand how students currently experience complex academic tasks and what they would need in order to trust an AI-supported university interface.
+
+The combined validation produced several important findings:
+
+- General-purpose AI tools were usually good at identifying what information mattered, but they often still required the student to manually gather information from multiple systems.
+- Reasoning was generally stronger when all relevant facts were explicitly provided.
+- Models sometimes mixed verified facts with generic institutional assumptions.
+- Conversational memory or personalization could introduce context that had not been verified against the student's current institutional record.
+- Conflicting policies were not handled consistently across models.
+- Long chatbot-style responses often created additional cognitive load rather than reducing it.
+- Students consistently preferred verified information, visible uncertainty, and clear source information over fast but generic answers.
+- Consequential actions such as dropping a course should remain under student control and require consequence review and explicit confirmation.
+- Students also valued consistent interface patterns and clear escalation to a human when the system could not safely resolve a case.
+
+These findings refined the original InterfaceFlux concept. The project is no longer focused only on generating a personalized interface from a natural-language goal. The interface must also be **grounded, selective, source-aware, predictable, and explicit about uncertainty and decision rights**.
+
+### Checkpoint 2 Priority Gaps
+
+Three gaps were selected as the highest priority for the next checkpoint:
+
+1. **Grounding in verified student state and institutional policy**  
+   InterfaceFlux should distinguish between verified institutional facts and general model knowledge. Student status, deadlines, thresholds, holds, and policy rules should come from controlled and traceable sources.
+
+2. **Confirmation and consequence-review boundaries**  
+   The student should remain the final decision-maker, while the system must preserve required consequence review and explicit confirmation before consequential actions.
+
+3. **Attention load and focused interface composition**  
+   Instead of presenting every possible consequence, InterfaceFlux should use verified student context to show only the most relevant information, warnings, and next actions.
+
+---
+
+## Checkpoint 3 Direction
+
+Checkpoint 3 will focus on turning the validated design principles into a more integrated InterfaceFlux prototype.
+
+The next prototype will test whether a hybrid system can outperform both:
+
+- a student navigating a traditional university-style interface without AI support; and
+- a student using a general-purpose AI assistant without verified institutional context.
+
+### Planned Checkpoint 3 Focus
+
+The team plans to implement and evaluate:
+
+- verified retrieval of synthetic student records and controlled policy data;
+- task-specific interface generation using a fixed library of trusted components;
+- visible source and verification indicators;
+- explicit handling of missing or conflicting information;
+- consequence summaries that prioritize only relevant risks;
+- mandatory review and confirmation before state-changing actions;
+- deterministic backend validation for permissions and execution;
+- structured escalation when human review is required; and
+- consistent interface patterns across different student goals.
+
+### Checkpoint 3 Evaluation
+
+The Checkpoint 3 evaluation will compare:
+
+1. **Human-alone baseline**  
+   Student completes the task using a traditional portal-style workflow.
+
+2. **AI-alone baseline**  
+   Student uses a general-purpose conversational AI without verified student records or controlled institutional policies.
+
+3. **Hybrid InterfaceFlux condition**  
+   Student uses InterfaceFlux with verified context, focused interface composition, explicit uncertainty states, and controlled action              boundaries.
+
+The goal for Checkpoint 3 is not simply to make InterfaceFlux more autonomous. It is to test whether a clearer division of responsibility between the **AI, trusted system logic, and the student** creates a safer and more useful experience.
+
+
+---
+
+## Checkpoint 3 — Implemented System and Results
+
+**Implementation snapshot:** November 6, 2026  
+**Branch:** `live_demo` · **Run it:** see [app/INSTALL.md](app/INSTALL.md)
+
+Checkpoint 3 turned InterfaceFlux from a goal-adaptive interface concept into an integrated, source-grounded student-services portal. Live generative AI interprets the student's goal; deterministic rules combine a synthetic student record with quoted UIUC sources; the page shows what matters for that student and where to check anything it can't verify; and consequential actions need explicit confirmation.
+
+### Implemented functionality
+
+1. **Natural-language goal interpretation.** Groq-hosted inference (`openai/gpt-oss-120b`) identifies one of eight intents and extracts what the student typed:
+   - **intents:** drop, graduation, hold, the student's own record, course search, course details, policy, or out of scope;
+   - **details:** course code or name, term, subject, credit hours, level, topic.
+   It understands synonyms, abbreviations and relative terms such as "next spring" or "last semester".
+2. **Source-grounded university information.** Policy facts, deadlines, course data, class schedules and degree requirements come from the real UIUC documents in `University docs/`, with verbatim quotes and page references (81 quotes verified automatically).
+3. **Synthetic student records.** A reproducible set of 254 fictional students across CS BS, IS BS, CS MCS and Information Management MS, with transcripts, Fall 2026 enrollments, Spring 2027 registrations, visa status and holds.
+4. **Term picker.** Six terms: Fall 2025, Spring 2026, Fall 2026 (current), Winter 2027, Spring 2027 and Summer 2027. Schedules, key dates, drop checks and important items follow the selected term.
+5. **Deterministic academic rules.** The rules cover:
+   - **drops:** enrollment, ISSS minimums, no-W and refund deadlines by part of term, withdrawal and cancellation, the graduate petition cutoff, and pending requests;
+   - **graduation:** CS BS, IS BS, CS MCS and Information Management MS requirements, with "Graduation is not guaranteed" wording;
+   - **registration:** holds and registration dates;
+   - **courses:** search and course details;
+   - **policy:** answers quoted directly from the sources.
+6. **Important for you.** Every result page and the dashboard lead with:
+   - the student's holds;
+   - the selected term's upcoming deadlines (urgent within 7 days);
+   - the F-1/J-1 minimum;
+   - missing registration;
+   - the graduation application;
+   - recorded requests.
+7. **Where to check.** Anything the sources can't verify points to the official place (the course's Course Explorer page, Registrar refund schedules, ISSS, Student Self-Service, the college office or the academic advisor). Out-of-scope questions get a guide to official pages instead of a dead end.
+8. **Explicit confirmation and request history.** Consequential actions need acknowledgment and server-side revalidation before a receipt is recorded. Requests appear under *My requests* and can be cancelled there or on the receipt page; dropped courses are marked *Drop requested*, and duplicates of active requests are blocked.
+9. **Failure and recovery handling.** Test scenarios (conflicting policy versions, record unavailable, service outage) block every question type and recover to review without executing anything.
+
+### Supported question types
+
+| Question type | Example | What the page shows |
+|---|---|---|
+| Course drop | "Can I drop CS 411?" / "can I quit my database class?" | Credit change, visa minimum, tuition range and refund, no-W deadline by part of term, withdrawal rules |
+| Graduation | "What do I still need to graduate?" | Requirement-by-requirement check against the 2026-2027 catalog, unverified items with the advisor, graduation application |
+| Holds | "Why can't I register?" | Holds, what they can block, registration dates, where to resolve them |
+| Your courses & record (ask under *Something else*) | "What courses do I have?" / "what did I take last semester" | The term's courses with status or grades, hours this term, completed hours, GPA, holds |
+| Course search | "3 credit courses I can take next spring" / "any AI courses?" | Matching courses from the Course Explorer schedules with credits, prerequisites and the student's record |
+| Course details | "What are the prerequisites for CS 425?" | Prerequisites, when offered, the student's record, whether it counts toward the degree |
+| Policy | "How many credits do international students need?" | The quoted policy text and the term's relevant dates |
+| Anything else | "Where can I get a parking permit?" | Important items plus a guide to official pages |
+
+### Checkpoint 3 validation
+
+| Check | Result |
+|---|---|
+| Backend tests (`python -m pytest tests -q`, November 6, 2026) | **52 passed** |
+| Source verification (`app/tools/verify_sources.py`) | **81/81** quotations found on their cited pages; every deadline date matches its quote |
+| Live intent evaluation (`app/eval_intents.py`) | **37/38** on the 38-case run (the one failure, A06, is contained by the rules); the 4 later record cases passed |
+| Browser checks | Main flows, term picker, important items, confirmation and *My requests*, phone width and dark mode |
+
+### Evidence and documentation
+
+- [System architecture](docs/architecture.md)
+- [Use cases, edge cases and recovery tests](docs/use-cases.md)
+- [Safety, privacy and guardrails](docs/safety_privacy.md)
+- [Observability](docs/observability.md)
+- [Local installation instructions](app/INSTALL.md)
+- [Checkpoint 3 validation screenshots](validation/checkpoint3/): earlier builds and prompt tests; some reflect the previous prototype
+
+### Known limitations
+
+- **Local prototype.** Student records are fictional, university sources are not refreshed automatically, and recorded actions do not modify university systems.
+- **Partial degree checks.** CS BS, IS BS, CS MCS and Information Management MS are checked; gen eds, focus areas, technical GPA, the MCS breadth requirement and the ILEE degree are not.
+- **Unchecked prerequisites.** Prerequisites are shown but not checked against transcripts.
+- **Part of term unknown.** Each course's part of term isn't in the loaded schedules, so some undergraduate drops can't be decided; the page links to the course's Course Explorer page.
+- **Outside scope.** Production authentication, operational monitoring and integration with university systems.
+
+### Connection to the project research
+
+Checkpoint 3 operationalizes the three primary gaps identified in Checkpoint 2:
+
+- **Grounding:** institutional facts come from traceable, quoted sources, never from the model.
+- **Human control:** consequential actions require deterministic validation and explicit confirmation.
+- **Attention management:** each page leads with what matters for this student and where to act, instead of a long generic answer.
+
+The final evaluation will examine whether this hybrid approach improves task comprehension and decision quality compared with conventional portal navigation and general-purpose conversational AI.
+
+---
+
+## Project Vision
+
+InterfaceFlux explores a different way of thinking about digital interfaces.
+
+Instead of requiring users to understand how a complex system is organized before they can accomplish something, the system attempts to understand what the user wants to accomplish first and adapts the interface around that goal.
+
+Our central research question is:
+
+> **Can Generative AI transform a natural-language goal and current system state into a more direct, understandable, and actionable interface while preserving user control?**
